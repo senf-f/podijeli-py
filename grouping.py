@@ -20,8 +20,12 @@ def assign_balanced_groups(singles, doubles, n_groups):
     return groups
 
 def main():
-    singles = parse_names(input("Unesi samce (comma-separated):\n"))
-    doubles = parse_names(input("Unesi parove (comma-separated):\n"))
+    if APP_ENV == "dev":
+        print("Running in DEVELOPMENT mode")
+    else:
+        print("Running in PRODUCTION mode")
+    singles = parse_names(input("Unesi samce (odijeljene zarezom):\n"))
+    doubles = parse_names(input("Unesi parove (odijeljene zarezom):\n"))
     overlapping = set(singles) & set(doubles)
     if overlapping:
         if APP_ENV == "dev":
@@ -34,10 +38,11 @@ def main():
     else:
         print("Grupe:")
     for i, group in enumerate(groups, 1):
-        members_str = ", ".join(f"{name} (x2)" if weight == 2 else name for name, weight in group['members'])
         if APP_ENV == "dev":
+            members_str = ", ".join(f"{name} (x2)" if weight == 2 else name for name, weight in group['members'])
             print(f"Group {i} (weight {group['weight']}): {members_str}")
         else:
+            members_str = ", ".join(name for name, weight in group['members'])
             print(f"Grupa {i}: {members_str}")
         
 
