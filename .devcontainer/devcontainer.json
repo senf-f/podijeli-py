@@ -1,5 +1,8 @@
 {
   "name": "Python Grouping App",
+  "containerEnv": {
+    "APP_ENV": "dev"
+  },
   "build": {
     "dockerfile": "../Dockerfile"
   },
